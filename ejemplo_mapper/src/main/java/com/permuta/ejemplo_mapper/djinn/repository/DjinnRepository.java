@@ -25,6 +25,10 @@ public class DjinnRepository {
         return djinn;
     }
 
+    public Djinn delete(Long id) {
+        return store.remove(id);
+    }
+
     public Optional<Djinn> findById(Long id) {
         return store.values().stream()
             .filter(djinn -> djinn.getId().equals(id))

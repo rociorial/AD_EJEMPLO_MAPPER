@@ -22,4 +22,5 @@ public interface DjinnMapper {
     DjinnResponse toResponse(Djinn djinn);
 
     List<DjinnResponse> toResponseList(List<Djinn> djinns);
+
 }

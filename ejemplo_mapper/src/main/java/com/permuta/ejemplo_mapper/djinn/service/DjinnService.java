@@ -31,57 +31,63 @@ public class DjinnService {
         return mapper.toResponse(repository.save(djinn));
     }
 
-	public DjinnResponse getById(Long id) throws DjinnNotFoundException{
-        
-		Optional<Djinn> djinn = repository.findById(id);
-        
-        
+    public DjinnResponse getById(Long id) throws DjinnNotFoundException {
 
+        Optional<Djinn> djinn = repository.findById(id);
         return mapper.toResponse(djinn.orElseThrow(() -> new DjinnNotFoundException(id)));
-	}
+    }
+
+    public Djinn delete(Long id) {
+        Djinn djinn = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Djinn no encontrado"));
+
+        repository.delete(id);
+
+        return djinn;
+    }
 
     // ---------------------------------------------------------------------
     // VERSIÓN ANTERIOR (sin mapper): todos los "new" a mano
     // ---------------------------------------------------------------------
 
     // public List<DjinnResponse> findAll() {
-    //     List<DjinnResponse> responses = new ArrayList<>();
-    //     for (Djinn djinn : repository.findAll()) {
-    //         responses.add(new DjinnResponse(
-    //                 djinn.getId(),
-    //                 djinn.getName(),
-    //                 djinn.getElement(),
-    //                 djinn.getGame(),
-    //                 djinn.getLocation(),
-    //                 djinn.getEffect(),
-    //                 djinn.getSummonPower(),
-    //                 djinn.getState(),
-    //                 djinn.getName() + " (" + djinn.getElement() + ")"));
-    //     }
-    //     return responses;
+    // List<DjinnResponse> responses = new ArrayList<>();
+    // for (Djinn djinn : repository.findAll()) {
+    // responses.add(new DjinnResponse(
+    // djinn.getId(),
+    // djinn.getName(),
+    // djinn.getElement(),
+    // djinn.getGame(),
+    // djinn.getLocation(),
+    // djinn.getEffect(),
+    // djinn.getSummonPower(),
+    // djinn.getState(),
+    // djinn.getName() + " (" + djinn.getElement() + ")"));
+    // }
+    // return responses;
     // }
     //
     // public DjinnResponse create(NewDjinnRequest request) {
-    //     Djinn djinn = new Djinn(
-    //             null,
-    //             request.name(),
-    //             request.element(),
-    //             request.game(),
-    //             request.location(),
-    //             request.effect(),
-    //             request.summonPower(),
-    //             DjinnState.SET,
-    //             LocalDateTime.now());
-    //     Djinn saved = repository.save(djinn);
-    //     return new DjinnResponse(
-    //             saved.getId(),
-    //             saved.getName(),
-    //             saved.getElement(),
-    //             saved.getGame(),
-    //             saved.getLocation(),
-    //             saved.getEffect(),
-    //             saved.getSummonPower(),
-    //             saved.getState(),
-    //             saved.getName() + " (" + saved.getElement() + ")");
+    // Djinn djinn = new Djinn(
+    // null,
+    // request.name(),
+    // request.element(),
+    // request.game(),
+    // request.location(),
+    // request.effect(),
+    // request.summonPower(),
+    // DjinnState.SET,
+    // LocalDateTime.now());
+    // Djinn saved = repository.save(djinn);
+    // return new DjinnResponse(
+    // saved.getId(),
+    // saved.getName(),
+    // saved.getElement(),
+    // saved.getGame(),
+    // saved.getLocation(),
+    // saved.getEffect(),
+    // saved.getSummonPower(),
+    // saved.getState(),
+    // saved.getName() + " (" + saved.getElement() + ")");
     // }
 }
