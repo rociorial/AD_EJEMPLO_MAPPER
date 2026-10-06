@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -22,5 +23,11 @@ public class DjinnRepository {
         djinn.setId(sequence.incrementAndGet());
         store.put(djinn.getId(), djinn);
         return djinn;
+    }
+
+    public Optional<Djinn> findById(Long id) {
+        return store.values().stream()
+            .filter(djinn -> djinn.getId().equals(id))
+            .findFirst();
     }
 }

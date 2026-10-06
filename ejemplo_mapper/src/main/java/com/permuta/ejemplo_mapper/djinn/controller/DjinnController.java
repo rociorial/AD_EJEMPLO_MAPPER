@@ -6,6 +6,7 @@ import com.permuta.ejemplo_mapper.djinn.service.DjinnService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +29,10 @@ public class DjinnController {
     @PostMapping
     public DjinnResponse create(@Valid @RequestBody NewDjinnRequest request) {
         return service.create(request);
+    }
+
+    @GetMapping("/{id}")
+    public DjinnResponse getDjinnById(@PathVariable Long id) {
+        return service.getById(id);
     }
 }
